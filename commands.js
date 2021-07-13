@@ -11,10 +11,10 @@ const COMMANDS = [
     command: "restart_poll",
     description: "Запустить заново опрос для мема (надо ввести id)",
   },
-  {
-    command: "reset_reports",
-    description: "Сбросить статистику (только для теста, потом удалить, иначе каждый умник будет затирать бд)",
-  }
+  // {
+  //   command: "reset_reports",
+  //   description: "Сбросить статистику (только для теста, потом удалить, иначе каждый умник будет затирать бд)",
+  // }
 ];
 
 module.exports = COMMANDS;
