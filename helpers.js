@@ -28,7 +28,8 @@ const getStrDate = (dateType, unix ) => {
 
 const countRate = (poll) => {
   const pollId = pathOr(null, ['id'], poll)
-  const rate = reduce((acc, { text, voter_count }) => add(acc, text * voter_count), 0, poll.options)
+  const pollOptions = pathOr([], ['options'], poll)
+  const rate = reduce((acc, { text, voter_count }) => add(acc, text * voter_count), 0, pollOptions)
 
   return {
     pollId,
