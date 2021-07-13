@@ -5,6 +5,8 @@ const { handleMessage, countRate, groupByAuthors, getQuery, buildMessage } = req
 const Mem = require('./models')
 const COMMANDS = require('./commands');
 const moment = require('moment');
+const express = require('express')
+const app = express()
 
 moment.locale('ru')
 const bot = new TelegramApi('1864286203:AAFrhRsmF-fjl8zZnNGskPs4RYN6W5AZuhM', { polling: true })
@@ -183,5 +185,9 @@ bot.onText(/(\/show_month)|(\/show_year)/g, async (ctx, match) => {
   // с <a href="https://t.me/c/${chatId}/${winner.bestMem.id}">ЭТИМ МЕМЧИКОМ</a>
   bot.sendMessage(ctx.chat.id, message, { parse_mode: 'HTML' })
 })
+
+app.listen(3000, function () {
+  console.log('Bot API was runned on port 3000!');
+});
 
 connectDb()
