@@ -185,6 +185,3 @@ bot.onText(/(\/show_month)|(\/show_year)/g, async (ctx, match) => {
 })
 
 connectDb()
-
-process.once('SIGINT', () => bot.stop('SIGINT'))
-process.once('SIGTERM', () => bot.stop('SIGTERM'))
