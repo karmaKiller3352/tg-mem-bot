@@ -1,5 +1,7 @@
 const mongoose = require('mongoose')
-const uri = "mongodb+srv://rest_api:2QK5CWv8zZuZMq5@cluster0.cg8tf.mongodb.net/mems?retryWrites=true&w=majority";
+require('dotenv').config();
+
+const uri = process.env.MONGO_URL;
 
 async function connectDb() {
   try {
@@ -7,7 +9,8 @@ async function connectDb() {
       uri,
       {
         useNewUrlParser: true,
-        useFindAndModify: false
+        useFindAndModify: false,
+        useUnifiedTopology: true
       }
     )
     console.log('Database connected')

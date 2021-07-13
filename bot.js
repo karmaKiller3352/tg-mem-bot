@@ -1,15 +1,20 @@
  
 const TelegramApi = require('node-telegram-bot-api')
+const express = require('express');
+const moment = require('moment');
+
 const { connectDb } = require('./db')
 const { handleMessage, countRate, groupByAuthors, getQuery, buildMessage } = require('./helpers')
 const Mem = require('./models')
 const COMMANDS = require('./commands');
-const moment = require('moment');
-const express = require('express')
+
+require('dotenv').config();
+
 const app = express()
 
 moment.locale('ru')
-const bot = new TelegramApi('1864286203:AAFrhRsmF-fjl8zZnNGskPs4RYN6W5AZuhM', { polling: true })
+
+const bot = new TelegramApi(process.env.TG_KEY, { polling: true })
 bot.setMyCommands(COMMANDS);
 
 const shippingOptions = ['0','1', '2', '3', '4', '5']
@@ -71,8 +76,11 @@ bot.onText(/(\/show_month)|(\/show_year)/g, async (ctx, match) => {
   bot.sendMessage(ctx.chat.id, message, { parse_mode: 'HTML' })
 })
 
-const port = process.env.PORT || 8080
+
 connectDb()
+
+const port = process.env.PORT || 8080
+
 app.listen(port, function () {
   console.log(`Bot API was runned on port ${port}!`);
 });

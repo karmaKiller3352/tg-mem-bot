@@ -134,7 +134,6 @@ const groupByAuthors = (memes) => {
 
 const getQuery = (command, unix) => {
   const { fieldName, format } = path([command], commandMapper)
-  console.log(fieldName, format)
 
   return { 
     [fieldName]: getStrDate(format, unix),
