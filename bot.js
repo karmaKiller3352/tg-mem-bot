@@ -32,11 +32,10 @@ const MEMProccess = async (msg) => {
 }
 
 bot.on('message', (msg) => {
-
   if (msg.photo) {
     MEMProccess(msg)
   }
-  if (msg.entities) {
+  if (msg.entities && msg.entities[0].type === 'url') {
     MEMProccess(msg)
   }
   if (msg.forward_from_chat) {
