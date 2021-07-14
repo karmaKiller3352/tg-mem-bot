@@ -17,7 +17,7 @@ moment.locale('ru')
 const bot = new TelegramApi(process.env.TG_KEY, { polling: true })
 bot.setMyCommands(COMMANDS);
 
-const shippingOptions = ['0','1', '2', '3', '4', '5']
+const shippingOptions = ['1', '2', '3', '4', '5']
 
 const MEMProccess = async (msg) => {
   const chatId = msg.chat.id.toString().slice(4)
@@ -31,15 +31,17 @@ const MEMProccess = async (msg) => {
   console.log(`Mem ${message.id} was added to database`)
 }
 
-bot.on('message', async (msg) => {
-  const caption = msg.caption || ''
-  if (caption.match(/(MEM)/)) {
-    await MEMProccess(msg)
-  }
-})
+bot.on('message', (msg) => {
 
-bot.onText(/(MEM)/g, async (msg) => {
-  await MEMProccess(msg)
+  if (msg.photo) {
+    MEMProccess(msg)
+  }
+  if (msg.entities) {
+    MEMProccess(msg)
+  }
+  if (msg.forward_from_chat) {
+    MEMProccess(msg)
+  }
 })
 
 bot.on('poll', async (poll) => {
@@ -48,7 +50,7 @@ bot.on('poll', async (poll) => {
   const mem = await Mem.findOne({ pollId })
 
   if (mem) {
-    mem.rate = rate
+    mem.rate += rate
     await mem.save()
     console.log(`Mem ${mem.id} rate was updated to ${rate}`)
   }
