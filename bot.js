@@ -49,7 +49,7 @@ bot.on('poll', async (poll) => {
   const mem = await Mem.findOne({ pollId })
 
   if (mem) {
-    mem.rate += rate
+    mem.rate = Number(mem.rate) + Number(rate)
     await mem.save()
     console.log(`Mem ${mem.id} rate was updated to ${rate}`)
   }
